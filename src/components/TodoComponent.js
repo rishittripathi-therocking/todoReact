@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Label, Button, Input, Form, ListGroup, ListGroupItem} from 'reactstrap';
 
+
+
 class Todo extends Component {
     constructor(props){
         super(props);
@@ -10,6 +12,7 @@ class Todo extends Component {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        
     }
 
     handleInputChange(event) {
@@ -32,8 +35,17 @@ class Todo extends Component {
           }));
       
     }
-    render() {
 
+    handleRemove(id) {
+        console.log(id);
+        const newList = this.state.itemList.filter((item) => item.id!==id);
+ 
+        this.setState({
+            itemList: newList
+        })
+    }
+     
+    render() {
         return(
             <React.Fragment>
                 <div className="container">
@@ -55,7 +67,10 @@ class Todo extends Component {
                              <React.Fragment>
                                  <Row>
                                     <Col md={12}>
-                                        <ListGroupItem key={itemList.id} >{itemList.item}</ListGroupItem>
+                                        <ListGroupItem key={itemList.id}  >
+                                            {itemList.item}
+                                            <Button style={{float: 'right'}} className='btn btn-success' onClick={() => this.handleRemove(itemList.id)}>Remove</Button>
+                                        </ListGroupItem>
                                     </Col>
                                 </Row>
                             </React.Fragment>
